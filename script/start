@@ -22,7 +22,38 @@ else
   exit 1
 fi
 
-curl -z assets/vendor/psicologi-italia.it/psi-widget.js -o assets/vendor/psicologi-italia.it/psi-widget.js https://www.psicologi-italia.it/api/psicologo/cosimo-giuseppe-comparini/psi-widget.js
+# Sync the upstream Psicologi-Italia widget for reference and regenerate the
+# served patched copy (psi-widget-modified.js):
+#  - Upstream is an IIFE renderable to a single hardcoded container ID. Our
+#    pages need two instances (desktop + mobile layouts), so we rewrite it
+#    into a `createWidget(id)` function.
+#  - Upstream sometimes ships the doctor's profile_image src as a relative
+#    path or under the broken `cdn.` host; force it to absolute `www.`.
+#  - Upstream re-stamps the CSS cache-buster with a fresh unix timestamp on
+#    every request, so we normalize it to keep the synced file stable.
+widget_dir="assets/vendor/psicologi-italia.it"
+widget_upstream="$widget_dir/psi-widget.js"
+widget_served="$widget_dir/psi-widget-modified.js"
+widget_tmp="$(mktemp)"
+widget_patched_tmp="$(mktemp)"
+trap 'rm -f "$widget_tmp" "$widget_patched_tmp"' EXIT
+if curl -sfS --max-time 5 -o "$widget_tmp" https://www.psicologi-italia.it/api/psicologo/cosimo-giuseppe-comparini/psi-widget.js; then
+  sed -i.bak 's/legacy_widget_style\.css?v=[0-9]*/legacy_widget_style.css?v=upstream/g' "$widget_tmp" && rm -f "$widget_tmp.bak"
+  if ! cmp -s "$widget_tmp" "$widget_upstream"; then
+    cp "$widget_tmp" "$widget_upstream"
+  fi
+  sed -E \
+    -e 's/^\(function \(\) \{$/function createWidget(id) {/' \
+    -e '/^    var id = "[a-f0-9]{40}",$/d' \
+    -e 's/getElementById\("iw_widget_[a-f0-9]{40}"\)/getElementById("iw_widget_"+id)/' \
+    -e 's/^\}\)\(\);$/}/' \
+    -e 's#"src":"https?:\\/\\/(www|cdn)\.psicologi-italia\.it\\/uploads#"src":"https:\\/\\/www.psicologi-italia.it\\/uploads#g' \
+    -e 's#"src":"\\/uploads#"src":"https:\\/\\/www.psicologi-italia.it\\/uploads#g' \
+    "$widget_upstream" > "$widget_patched_tmp"
+  if ! cmp -s "$widget_patched_tmp" "$widget_served"; then
+    cp "$widget_patched_tmp" "$widget_served"
+  fi
+fi
 
 npx concurrently --names "jekyll,postcss,prettier" --kill-others \
   'bundle exec jekyll serve --open-url --livereload' \

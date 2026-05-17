@@ -1,0 +1,19 @@
+<!-- prettier-ignore -->
+{% for menu_item in menu_items %}
+{% assign page_phantom_menu_id = page.phantom_menu_id | default: false %}
+{% assign menu_phantom_id = menu_item.phantom_menu_id %}
+{% assign menu_title = menu_item.menu_title | default: menu_item.title %}
+<li class="{{ include.li_class }}">
+  <!-- prettier-ignore -->
+  {% if page.url == menu_item.url or page_phantom_menu_id == menu_phantom_id %}
+    {% assign menu_active = true %}
+  {% else %}
+    {% assign menu_active = false %}
+  {% endif %}
+  {% include menu-item.html
+    title=menu_title
+    url=menu_item.url
+    active=menu_active
+  %}
+</li>
+{% endfor %}

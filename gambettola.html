@@ -129,29 +129,7 @@ permalink: "/contatti/gambettola"
       >
         {{ content }}
         <div class="inline-block">
-          <div
-            id="iw_widget_745236ce2d5572343a2f1e21711ef829a4807ab9-desktop"
-            class="WidgetContainer"
-            style="text-align: center; margin: 0 auto"
-          >
-            <div
-              style="
-                display: block;
-                font-style: italic;
-                font-size: 8px;
-                margin-top: 3px;
-                line-height: 1em !important;
-              "
-            >
-              Psicologo iscritto all'albo e verificato<br />da
-              <a
-                href="https://www.psicologi-italia.it/"
-                target="_blank"
-                style="text-decoration: none"
-                >Psicologi-Italia.it</a
-              >
-            </div>
-          </div>
+          {% include psi-widget-badge.html variant="desktop" %}
         </div>
       </div>
     </div>
@@ -171,29 +149,7 @@ permalink: "/contatti/gambettola"
     >
       {{ content }}
       <div class="mt-2 md:inline-block">
-        <div
-          id="iw_widget_745236ce2d5572343a2f1e21711ef829a4807ab9-mobile"
-          class="WidgetContainer"
-          style="text-align: center; margin: 0 auto"
-        >
-          <div
-            style="
-              display: block;
-              font-style: italic;
-              font-size: 8px;
-              margin-top: 3px;
-              line-height: 1em !important;
-            "
-          >
-            Psicologo iscritto all'albo e verificato<br />da
-            <a
-              href="https://www.psicologi-italia.it/"
-              target="_blank"
-              style="text-decoration: none"
-              >Psicologi-Italia.it</a
-            >
-          </div>
-        </div>
+        {% include psi-widget-badge.html variant="mobile" %}
       </div>
     </div>
   </div>
@@ -226,26 +182,4 @@ permalink: "/contatti/gambettola"
   </div>
 </div>
 
-<script>
-  (function (doc, tag, id) {
-    if (doc.getElementById(id)) {
-      return;
-    }
-    js = doc.createElement(tag);
-    js.id = id;
-    js.src = "/assets/vendor/psicologi-italia.it/psi-widget-modified.js";
-    js.type = "text/javascript";
-    doc.body.appendChild(js);
-  })(document, "script", "widgetId_745236ce2d5572343a2f1e21711ef829a4807ab9");
-
-  if (interval) {
-    clearInterval(interval);
-  }
-  var interval = setInterval(() => {
-    if (typeof createWidget === "function") {
-      clearInterval(interval);
-      createWidget("745236ce2d5572343a2f1e21711ef829a4807ab9-desktop");
-      createWidget("745236ce2d5572343a2f1e21711ef829a4807ab9-mobile");
-    }
-  }, 100);
-</script>
+{% include psi-widget-loader.html %}

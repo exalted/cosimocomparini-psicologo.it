@@ -1,0 +1,16 @@
+<script>
+  (function (doc, tag, id) {
+    if (doc.getElementById(id)) {
+      return;
+    }
+    var js = doc.createElement(tag);
+    js.id = id;
+    js.src = "/assets/vendor/psicologi-italia.it/psi-widget-modified.js";
+    js.type = "text/javascript";
+    js.onload = function () {
+      createWidget("desktop");
+      createWidget("mobile");
+    };
+    doc.body.appendChild(js);
+  })(document, "script", "psi-widget-script");
+</script>

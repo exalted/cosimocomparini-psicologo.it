@@ -145,49 +145,16 @@
     </div>
     <div class="hidden lg:flex flex-grow justify-center items-center">
       <ol class="flex space-x-1">
-        <!-- prettier-ignore -->
-        {% for menu_item in menu_items %}
-        {% assign page_phantom_menu_id = page.phantom_menu_id | default: false %}
-        {% assign menu_phantom_id = menu_item.phantom_menu_id %}
-        {% assign menu_title = menu_item.menu_title | default: menu_item.title %}
-        <li>
-          <!-- prettier-ignore -->
-          {% if page.url == menu_item.url or page_phantom_menu_id == menu_phantom_id %}
-            {% assign menu_active = true %}
-          {% else %}
-            {% assign menu_active = false %}
-          {% endif %}
-          {% include menu-item.html
-            title=menu_title
-            url=menu_item.url
-            active=menu_active
-          %}
-        </li>
-        {% endfor %}
+        {% include menu-list.html %}
       </ol>
     </div>
-    <div id="mobile-menu" class="lg:hidden" style="display: none">
-      <!-- Mobile menu -->
+    <div
+      id="mobile-menu"
+      class="lg:hidden fixed left-0 right-0 top-24 bg-white px-2 pt-2 pb-4 shadow-2xl border-t border-gray-100"
+      style="display: none"
+    >
       <ol class="flex flex-col space-y-3">
-        <!-- prettier-ignore -->
-        {% for menu_item in menu_items %}
-        {% assign page_phantom_menu_id = page.phantom_menu_id | default: false %}
-        {% assign menu_phantom_id = menu_item.phantom_menu_id %}
-        {% assign menu_title = menu_item.menu_title | default: menu_item.title %}
-        <li class="w-full">
-          <!-- prettier-ignore -->
-          {% if page.url == menu_item.url or page_phantom_menu_id == menu_phantom_id %}
-            {% assign menu_active = true %}
-          {% else %}
-            {% assign menu_active = false %}
-          {% endif %}
-          {% include menu-item.html
-            title=menu_title
-            url=menu_item.url
-            active=menu_active
-          %}
-        </li>
-        {% endfor %}
+        {% include menu-list.html li_class="w-full" %}
       </ol>
     </div>
   </nav>
@@ -198,12 +165,12 @@
   const mobileMenuHide = document.getElementById("mobile-menu-hide");
   const mobileMenu = document.getElementById("mobile-menu");
 
-  mobileMenuShow.addEventListener("click", function showMobileMenu(event) {
+  mobileMenuShow.addEventListener("click", function () {
     mobileMenu.style.display = "block";
     mobileMenuHide.style.display = "block";
     mobileMenuShow.style.display = "none";
   });
-  mobileMenuHide.addEventListener("click", function hideMobileMenu(event) {
+  mobileMenuHide.addEventListener("click", function () {
     mobileMenu.style.display = "none";
     mobileMenuHide.style.display = "none";
     mobileMenuShow.style.display = "block";
