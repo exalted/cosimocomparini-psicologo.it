@@ -5,7 +5,24 @@ trap "echo 'error: Script failed: see failed command above'" ERR
 
 cd "$(dirname "$0")/.."
 
-curl -o assets/vendor/psicologi-italia.it/psi-widget.js https://www.psicologi-italia.it/api/psicologo/cosimo-giuseppe-comparini/psi-widget.js
+if [ -s "${NVM_DIR:-$HOME/.nvm}/nvm.sh" ]; then
+  # shellcheck disable=SC1091
+  . "${NVM_DIR:-$HOME/.nvm}/nvm.sh"
+  nvm use >/dev/null 2>&1 || nvm install
+else
+  echo "error: nvm not found. Install from https://github.com/nvm-sh/nvm" >&2
+  exit 1
+fi
+
+if command -v rbenv >/dev/null 2>&1; then
+  eval "$(rbenv init - bash)"
+  rbenv version >/dev/null  # fails loudly if .ruby-version isn't installed
+else
+  echo "error: rbenv not found. Install with: brew install rbenv" >&2
+  exit 1
+fi
+
+curl -z assets/vendor/psicologi-italia.it/psi-widget.js -o assets/vendor/psicologi-italia.it/psi-widget.js https://www.psicologi-italia.it/api/psicologo/cosimo-giuseppe-comparini/psi-widget.js
 
 npx concurrently --names "jekyll,postcss,prettier" --kill-others \
   'bundle exec jekyll serve --open-url --livereload' \

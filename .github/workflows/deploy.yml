@@ -5,15 +5,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v6
         with:
-          node-version: '14'
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - uses: ruby/setup-ruby@v1
         with:
-          # ruby-version: 2.6 # Not needed with a .ruby-version file
+          # ruby-version not needed: setup-ruby auto-reads .ruby-version
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
       - name: Run bunch of commands
