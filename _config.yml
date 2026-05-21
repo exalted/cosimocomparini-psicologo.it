@@ -1,5 +1,9 @@
 destination: ./docs
 
+# Site metadata — consumed by structured data and SEO meta tags.
+url: "https://cosimocomparini-psicologo.it"
+title: "Psicologo a Cesena e Gambettola"
+
 defaults:
   -
     # default layout for all pages

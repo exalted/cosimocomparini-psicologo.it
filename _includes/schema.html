@@ -1,0 +1,128 @@
+{%- comment -%}
+  JSON-LD structured data.
+
+  Always emits a WebSite node and the practitioner as a Person/Physician.
+  Adds a LocalBusiness (Psychologist) node on office pages — set in front matter:
+      schema: office
+      office_key: cesena   # or gambettola
+  Adds a BlogPosting node on articles — set in front matter:
+      schema: article
+
+  Dynamic values are piped through `jsonify`, which emits a correctly escaped
+  JSON token, so quotes/accents in the data never break the JSON.
+{%- endcomment -%}
+{%- assign p = site.data.business.practitioner -%}
+{%- assign person_id = p.url | append: "#person" | absolute_url -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": {{ "/#website" | absolute_url | jsonify }},
+      "url": {{ "/" | absolute_url | jsonify }},
+      "name": {{ site.title | jsonify }},
+      "inLanguage": "it-IT",
+      "publisher": { "@id": {{ person_id | jsonify }} }
+    },
+    {
+      "@type": ["Person", "Physician"],
+      "@id": {{ person_id | jsonify }},
+      "name": {{ p.name | jsonify }},
+      "givenName": {{ p.given_name | jsonify }},
+      "familyName": {{ p.family_name | jsonify }},
+      "jobTitle": {{ p.job_title | jsonify }},
+      "url": {{ p.url | absolute_url | jsonify }},
+      "image": {{ p.image | absolute_url | jsonify }},
+      "telephone": {{ p.telephone | jsonify }},
+      "email": {{ p.email | jsonify }},
+      "knowsLanguage": "it",
+      "alumniOf": {{ p.alumni_of | jsonify }}
+      {%- if p.albo_number and p.albo_number != "" -%}
+      ,"hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "license",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": {{ "Ordine degli Psicologi dell'" | append: p.albo_region | jsonify }}
+        },
+        "identifier": {{ p.albo_number | append: "/" | append: p.albo_section | jsonify }}
+        {%- if p.albo_date and p.albo_date != "" -%}
+        ,"dateCreated": {{ p.albo_date | jsonify }}
+        {%- endif -%}
+        {%- if p.albo_url and p.albo_url != "" -%}
+        ,"url": {{ p.albo_url | jsonify }}
+        {%- endif -%}
+      }
+      {%- endif -%}
+      {%- if p.same_as -%}
+      ,"sameAs": {{ p.same_as | jsonify }}
+      {%- endif -%}
+    }
+    {%- if page.schema == "office" -%}
+    {%- assign office = site.data.business.offices[page.office_key] -%}
+    ,{
+      "@type": ["Psychologist", "MedicalBusiness", "LocalBusiness"],
+      "@id": {{ office.page_url | append: "#business" | absolute_url | jsonify }},
+      "name": {{ office.name | jsonify }},
+      "url": {{ office.page_url | absolute_url | jsonify }},
+      "image": {{ office.image | absolute_url | jsonify }},
+      "telephone": {{ p.telephone | jsonify }},
+      "email": {{ p.email | jsonify }},
+      "vatID": {{ p.vat_id | jsonify }},
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": {{ office.street | jsonify }},
+        "addressLocality": {{ office.city | jsonify }},
+        "postalCode": {{ office.postal_code | jsonify }},
+        "addressRegion": {{ office.province | jsonify }},
+        "addressCountry": {{ office.country | jsonify }}
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": {{ office.latitude | jsonify }},
+        "longitude": {{ office.longitude | jsonify }}
+      },
+      "hasMap": {{ office.map_url | jsonify }},
+      "areaServed": [
+        { "@type": "City", "name": {{ office.city | jsonify }} },
+        { "@type": "AdministrativeArea", "name": {{ office.region | jsonify }} }
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "08:00",
+          "closes": "21:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday"],
+          "opens": "08:00",
+          "closes": "16:00"
+        }
+      ],
+      "founder": { "@id": {{ person_id | jsonify }} },
+      "employee": { "@id": {{ person_id | jsonify }} }
+    }
+    {%- endif -%}
+    {%- if page.schema == "article" -%}
+    ,{
+      "@type": "BlogPosting",
+      "@id": {{ page.url | append: "#article" | absolute_url | jsonify }},
+      "headline": {{ page.title | jsonify }},
+      "mainEntityOfPage": {{ page.url | absolute_url | jsonify }},
+      {%- if page.date %}
+      "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+      {%- endif %}
+      {%- if page.image %}
+      "image": {{ page.image | prepend: "/assets/img/" | absolute_url | jsonify }},
+      {%- endif %}
+      "inLanguage": "it",
+      "author": { "@id": {{ person_id | jsonify }} },
+      "publisher": { "@id": {{ person_id | jsonify }} }
+    }
+    {%- endif -%}
+  ]
+}
+</script>

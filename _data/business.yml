@@ -1,0 +1,56 @@
+# Canonical business facts — single source of truth for NAP (name, address,
+# phone), the practitioner, and the two offices. Consumed by _includes/schema.html
+# (JSON-LD structured data). Jekyll auto-loads this as `site.data.business`.
+
+practitioner:
+  name: "Dott. Cosimo Giuseppe Comparini"
+  given_name: "Cosimo Giuseppe"
+  family_name: "Comparini"
+  job_title: "Psicologo"
+  url: "/chi-sono"
+  image: "/assets/img/chi-sono.jpg"
+  telephone: "+393295891245"
+  email: "cosimo.comparini@gmail.com"
+  vat_id: "04501090403"
+  alumni_of: "Alma Mater Studiorum - Università di Bologna"
+  # Albo degli Psicologi — regional register, confirmed by the practitioner.
+  # Strong E-E-A-T signal for a health (YMYL) site; published via hasCredential
+  # in _includes/schema.html. Leave albo_number blank to omit the credential.
+  albo_number: "8544"
+  albo_section: "A"
+  albo_region: "Emilia-Romagna"
+  albo_date: "2017-01-26"
+  albo_url: "https://www.ordinepsicologier.it/it/albo/8544a-cosimo%20giuseppe-comparini"
+  same_as:
+    - "https://www.guidapsicologi.it/studio/dott-cosimo-giuseppe-comparini"
+
+# Both offices: open Monday–Friday 08:00–21:00, Saturday 08:00–16:00, closed Sunday.
+offices:
+  cesena:
+    name: "Dott. Cosimo Giuseppe Comparini - Psicologo a Cesena"
+    page_url: "/contatti/cesena"
+    street: "Via Veneto, 139"
+    city: "Cesena"
+    province: "FC"
+    postal_code: "47521"
+    region: "Emilia-Romagna"
+    country: "IT"
+    # Coordinates of the office, confirmed against the Google Business Profile pin.
+    latitude: 44.14011400878265
+    longitude: 12.258675135112139
+    map_url: "https://www.google.com/maps?cid=18101383775185565389"
+    image: "/assets/img/cesena-1.jpg"
+  gambettola:
+    name: "Dott. Cosimo Giuseppe Comparini - Psicologo a Gambettola"
+    page_url: "/contatti/gambettola"
+    street: "Via del Cadore, 7/A"
+    city: "Gambettola"
+    province: "FC"
+    postal_code: "47035"
+    region: "Emilia-Romagna"
+    country: "IT"
+    # Coordinates of the office, confirmed against the Google Business Profile pin.
+    latitude: 44.1091007548782
+    longitude: 12.337084675035813
+    map_url: "https://www.google.com/maps?cid=15376152667525195972"
+    image: "/assets/img/gambettola-1.jpg"
