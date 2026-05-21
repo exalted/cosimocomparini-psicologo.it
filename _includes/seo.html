@@ -1,0 +1,24 @@
+{%- comment -%}
+  Per-page SEO <head> tags: title, meta description, canonical, robots.
+  Driven by front matter with site-wide fallbacks from _config.yml.
+
+  Front-matter keys (all optional):
+    seo_title   — full <title>; defaults to "<page.title> — <site.title>"
+    description — meta description; defaults to site.description
+    noindex     — when true, emits <meta name="robots" content="noindex">
+{%- endcomment -%}
+{%- if page.seo_title -%}
+  {%- assign seo_title = page.seo_title -%}
+{%- elsif page.url == "/" -%}
+  {%- assign seo_title = site.title -%}
+{%- else -%}
+  {%- assign seo_title = page.title | append: " — " | append: site.title -%}
+{%- endif -%}
+{%- assign seo_description = page.description | default: site.description -%}
+{%- assign canonical_url = page.url | replace: "index.html", "" | absolute_url -%}
+<title>{{ seo_title | escape }}</title>
+<meta name="description" content="{{ seo_description | strip_html | normalize_whitespace | escape }}" />
+<link rel="canonical" href="{{ canonical_url }}" />
+{%- if page.noindex %}
+<meta name="robots" content="noindex" />
+{%- endif %}

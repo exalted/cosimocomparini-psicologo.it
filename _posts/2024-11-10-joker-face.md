@@ -1,5 +1,6 @@
 ---
 title: "Joker Face"
+description: "Una lettura psicoanalitica del film «Joker: Folie à deux»: il sintomo, il godimento e la funzione del nome proprio nella vicenda di Arthur Fleck."
 image: "posts/2024-11-10-joker-face.jpg"
 phantom_menu_id: articoli
 schema: article

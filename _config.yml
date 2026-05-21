@@ -3,6 +3,7 @@ destination: ./docs
 # Site metadata — consumed by structured data and SEO meta tags.
 url: "https://cosimocomparini-psicologo.it"
 title: "Psicologo a Cesena e Gambettola"
+description: "Studio di psicologia e psicoanalisi del Dott. Cosimo Giuseppe Comparini, con sedi a Cesena e Gambettola. Un ascolto professionale per il disagio psichico."
 
 defaults:
   -
