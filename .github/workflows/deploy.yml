@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          # Full history so jekyll-last-modified-at can read per-file git dates.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v6
         with:

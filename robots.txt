@@ -5,7 +5,7 @@ layout: null
 {% assign pages = site.html_pages | where_exp: "page", "page.allow_robots == false" %}
 
 User-agent: *
-Sitemap: https://cosimocomparini-psicologo.it/sitemap.xml
+Sitemap: {{ site.url }}/sitemap.xml
 
 {% for page in pages %}
 Disallow: {{ page.url | split: "" | reverse | join: "" | replace_first: 'lmth.', '' | split: "" | reverse | join: "" }}

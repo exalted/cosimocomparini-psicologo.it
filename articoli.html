@@ -1,27 +1,42 @@
 ---
-layout: none
 title: "Articoli"
+seo_title: "Articoli — Psicologo a Cesena e Gambettola"
+description: "Articoli e riflessioni di psicologia e psicoanalisi a cura del Dott. Cosimo Giuseppe Comparini, psicologo a Cesena e Gambettola."
 menu_order: 4
 phantom_menu_id: articoli
-sitemap: false
+permalink: "/articoli"
 ---
 
-{% assign last_post = site.posts | first %}
+<div class="py-4 lg:py-12">
+  <div class="2xl:container mx-auto px-4">
+    <hr
+      class="border-4 border-green-500 mx-auto lg:mx-0 w-16 lg:w-20 mb-2 lg:mb-4"
+    />
+    <h1
+      class="text-center lg:text-left text-2xl lg:text-4xl font-bold text-gray-600"
+    >
+      {{ page.title }}
+    </h1>
 
-<!doctype html>
-<html lang="it">
-  <head>
-    <meta name="robots" content="noindex" />
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reindirizzamento in corso...</title>
-    <meta http-equiv="refresh" content="0; url={{ last_post.url }}" />
-    <script>
-      window.location.href = "{{ last_post.url }}";
-    </script>
-  </head>
-  <body>
-    Se non vieni reindirizzato, <a href="{{ last_post.url }}">clicca qui</a>.
-  </body>
-</html>
+    <ol class="mt-8 lg:mt-12 space-y-8 max-w-prose mx-auto lg:mx-0">
+      <!-- prettier-ignore -->
+      {% for post in site.posts %}
+      <li>
+        <a href="{{ post.url }}" class="group block">
+          <h2
+            class="text-xl lg:text-2xl font-bold text-gray-600 group-hover:text-green-700"
+          >
+            {{ post.title }}
+          </h2>
+          <!-- prettier-ignore -->
+          {% if post.description %}
+          <p class="mt-1 text-lg font-light text-gray-500">
+            {{ post.description }}
+          </p>
+          {% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>

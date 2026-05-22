@@ -10,15 +10,15 @@ layout: null
 
     {% for page in pages %}
     <url>
-        <loc>https://cosimocomparini-psicologo.it{{page.url}}</loc>
-        <lastmod>{{site.time | date: '%Y-%m-%d' }}</lastmod>
+        <loc>{{ site.url }}{{ page.url }}</loc>
+        <lastmod>{{ page.last_modified_at | date: '%Y-%m-%d' }}</lastmod>
     </url>
     {% endfor %}
 
     {% for post in posts %}
     <url>
-        <loc>https://cosimocomparini-psicologo.it{{post.url}}</loc>
-        <lastmod>{{post.date | date: '%Y-%m-%d' }}</lastmod>
+        <loc>{{ site.url }}{{ post.url }}</loc>
+        <lastmod>{{ post.date | date: '%Y-%m-%d' }}</lastmod>
     </url>
     {% endfor %}
 
