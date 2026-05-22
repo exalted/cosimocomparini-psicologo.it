@@ -12,11 +12,11 @@ layout: "default"
       <hr
         class="border-4 border-green-500 mx-auto lg:mx-0 w-16 lg:w-20 mb-2 lg:mb-4"
       />
-      <h3
+      <h1
         class="text-center lg:text-left text-2xl lg:text-4xl font-bold text-gray-600"
       >
         {{ page.title }}
-      </h3>
+      </h1>
       {% if page.image %}
       <div
         class="-mx-4 lg:mx-0 {% if page.alternative-layout %} lg:col-start-1 lg:row-start-1 {% endif %}"
@@ -34,11 +34,11 @@ layout: "default"
     <div
       class="text-xl font-light space-y-2 lg:space-y-6 leading-relaxed text-center lg:text-left order-1 lg:order-2"
     >
-      <h3
+      <h2
         class="text-center lg:text-left text-2xl lg:text-2xl font-bold text-gray-400"
       >
         Tutti gli Articoli
-      </h3>
+      </h2>
       <ol>
         <!-- prettier-ignore -->
         {% for post in site.posts %}
