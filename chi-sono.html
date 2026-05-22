@@ -72,11 +72,8 @@ permalink: "/chi-sono"
     <div
       class="h-0 aspect-w-1 aspect-h-1 lg:aspect-w-3 lg:aspect-h-4 -mx-4 lg:mx-0"
     >
-      <img
-        class="object-cover object-top lg:rounded-lg lg:shadow-lg"
-        src="/assets/img/chi-sono.jpg"
-        alt="Foto di Dott. Cosimo Giuseppe Comparini"
-      />
+      {% assign photo_alt = "Foto di " | append: site.data.business.practitioner.name %}
+      {% include picture.html name="chi-sono" width="1280" height="1600" loading="eager" class="object-cover object-top lg:rounded-lg lg:shadow-lg" alt=photo_alt %}
     </div>
     <div
       class="lg:hidden max-w-prose text-lg font-light space-y-4 pt-6 leading-relaxed"

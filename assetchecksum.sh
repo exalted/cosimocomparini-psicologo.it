@@ -6,6 +6,7 @@ assets=$(find . \( \
     -iname '*.png' \
     -o -iname '*.jpg' \
     -o -iname '*.jpeg' \
+    -o -iname '*.webp' \
     -o -iname '*.xml' \
     -o -iname '*.ico' \
     -o -iname '*.svg' \

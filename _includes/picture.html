@@ -1,0 +1,24 @@
+{%- comment -%}
+  Responsive <picture>: serves WebP with a JPEG fallback.
+
+  Usage:
+    {% include picture.html name="cesena-1" alt="…"
+       width="1600" height="1200"
+       loading="lazy"
+       class="object-cover object-center lg:rounded-lg lg:shadow-lg" %}
+
+  The <img> carries w-full/h-full so it fills a parent aspect-ratio box: the
+  @tailwindcss/aspect-ratio plugin positions the <picture>, the <img> fills it.
+{%- endcomment -%}
+<picture>
+  <source srcset="/assets/img/{{ include.name }}.webp" type="image/webp" />
+  <img
+    src="/assets/img/{{ include.name }}.jpg"
+    alt="{{ include.alt }}"
+    width="{{ include.width }}"
+    height="{{ include.height }}"
+    loading="{{ include.loading | default: 'lazy' }}"
+    decoding="async"
+    class="w-full h-full {{ include.class }}"
+  />
+</picture>
