@@ -8,13 +8,38 @@
     js.src = "/assets/vendor/psicologi-italia.it/psi-widget-modified.js";
     js.type = "text/javascript";
     js.onload = function () {
-      createWidget("desktop");
-      createWidget("mobile");
-      // Give the widget iframes an accessible name (a11y: frame-title).
       ["desktop", "mobile"].forEach(function (variant) {
+        createWidget(variant);
         var frame = document.getElementById("WidgetFrameId_" + variant);
-        if (frame) {
-          frame.title = "Badge di verifica Psicologi-Italia.it";
+        if (!frame) {
+          return;
+        }
+        // Give the widget iframe an accessible name (a11y: frame-title).
+        frame.title = "Badge di verifica Psicologi-Italia.it";
+        // The served widget is left as upstream ships it, with the doctor's
+        // profile image as a relative `/uploads/…` path (or, sometimes, on the
+        // broken `cdn.` host). Both fail inside the about:blank iframe, so fix
+        // the src to the absolute `www.` host here, at runtime.
+        try {
+          var img = frame.contentWindow.document.querySelector(
+            ".wb_profileTitle img",
+          );
+          if (img) {
+            var src = img.getAttribute("src") || "";
+            if (src.indexOf("/uploads") === 0) {
+              img.setAttribute("src", "https://www.psicologi-italia.it" + src);
+            } else {
+              img.setAttribute(
+                "src",
+                src.replace(
+                  "//cdn.psicologi-italia.it/",
+                  "//www.psicologi-italia.it/",
+                ),
+              );
+            }
+          }
+        } catch (e) {
+          /* cross-origin or not-yet-rendered: leave the upstream src as is */
         }
       });
     };

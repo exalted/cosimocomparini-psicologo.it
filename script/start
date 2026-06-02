@@ -26,9 +26,10 @@ fi
 # served patched copy (psi-widget-modified.js):
 #  - Upstream is an IIFE renderable to a single hardcoded container ID. Our
 #    pages need two instances (desktop + mobile layouts), so we rewrite it
-#    into a `createWidget(id)` function.
-#  - Upstream sometimes ships the doctor's profile_image src as a relative
-#    path or under the broken `cdn.` host; force it to absolute `www.`.
+#    into a `createWidget(id)` function. This is the ONLY change to the served
+#    file — the doctor's profile_image src (shipped relative or under the broken
+#    `cdn.` host) is now fixed at runtime in _includes/psi-widget-loader.html,
+#    so the patched copy stays as close to upstream as possible.
 #  - Upstream re-stamps the CSS cache-buster with a fresh unix timestamp on
 #    every request, so we normalize it to keep the synced file stable.
 widget_dir="assets/vendor/psicologi-italia.it"
@@ -47,8 +48,6 @@ if curl -sfS --max-time 5 -o "$widget_tmp" https://www.psicologi-italia.it/api/p
     -e '/^    var id = "[a-f0-9]{40}",$/d' \
     -e 's/getElementById\("iw_widget_[a-f0-9]{40}"\)/getElementById("iw_widget_"+id)/' \
     -e 's/^\}\)\(\);$/}/' \
-    -e 's#"src":"https?:\\/\\/(www|cdn)\.psicologi-italia\.it\\/uploads#"src":"https:\\/\\/www.psicologi-italia.it\\/uploads#g' \
-    -e 's#"src":"\\/uploads#"src":"https:\\/\\/www.psicologi-italia.it\\/uploads#g' \
     "$widget_upstream" > "$widget_patched_tmp"
   if ! cmp -s "$widget_patched_tmp" "$widget_served"; then
     cp "$widget_patched_tmp" "$widget_served"

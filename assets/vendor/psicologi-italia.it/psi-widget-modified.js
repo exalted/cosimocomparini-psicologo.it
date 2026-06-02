@@ -45,7 +45,7 @@ function createWidget(id) {
     maxWidth = '200';
     widgetVd = '1';
     skinType = 'light';
-    wD = {"value":"91","label":"Dott. Cosimo Giuseppe Comparini","text":"Dott. Cosimo Giuseppe Comparini","linkTo":"profile","image":"logo.png","extra":{"type":null,"data":{"title":null,"image":null,"url":null}},"starsvalue":5,"starscount":3,"stars":5,"profile_image":{"style":"position: absolute;  left: 50%; margin-left: -40px;  top: 50%; margin-top: -40px;","src":"https:\/\/www.psicologi-italia.it\/uploads\/2024\/11\/24\/thumb\/s_w80_h80\/img-2559-1-19351.jpeg","bigsrc":null,"width":50,"height":50,"didascalia":null,"ori":null}};
+    wD = {"value":"91","label":"Dott. Cosimo Giuseppe Comparini","text":"Dott. Cosimo Giuseppe Comparini","linkTo":"profile","image":"logo.png","extra":{"type":null,"data":{"title":null,"image":null,"url":null}},"starsvalue":5,"starscount":3,"stars":5,"profile_image":{"style":"position: absolute;  left: 50%; margin-left: -40px;  top: 50%; margin-top: -40px;","src":"\/uploads\/2024\/11\/24\/thumb\/s_w80_h80\/img-2559-1-19351.jpeg","bigsrc":null,"width":50,"height":50,"didascalia":null,"ori":null}};
     wTarget = "_blank";
     var init = function () {
         var wHTML = '<div id="WidgetId_'+id+'" class="WidgetBox '+skinType+'">', 
