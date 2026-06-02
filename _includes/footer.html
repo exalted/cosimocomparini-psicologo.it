@@ -1,17 +1,20 @@
+{% assign p = site.data.business.practitioner %}
+{% assign cesena = site.data.business.offices.cesena %}
+{% assign gambettola = site.data.business.offices.gambettola %}
 <footer
   class="h-48 bg-gradient-to-b from-green-500 to-green-600 flex flex-col justify-center items-center"
 >
   <p class="text-center text-white">
-    <a href="/contatti/cesena" class="inline-block mt-2"
-      >Via Veneto, 139, 47521 Cesena (FC)</a
+    <a href="{{ cesena.page_url }}" class="inline-block mt-2"
+      >{{ cesena.street }}, {{ cesena.postal_code }} {{ cesena.city }} ({{ cesena.province }})</a
     ><br />
-    <a href="/contatti/gambettola" class="inline-block mt-2"
-      >Via del Cadore, 7/A, 47035 Gambettola (FC)</a
+    <a href="{{ gambettola.page_url }}" class="inline-block mt-2"
+      >{{ gambettola.street }}, {{ gambettola.postal_code }} {{ gambettola.city }} ({{ gambettola.province }})</a
     ><br />
-    <a href="tel:+393295891245" class="inline-block mt-2">+39 329 589 1245</a
+    <a href="tel:{{ p.telephone }}" class="inline-block mt-2">+39 {{ p.telephone_display }}</a
     ><br />
-    <a href="mailto:cosimo.comparini@gmail.com">cosimo.comparini@gmail.com</a
+    <a href="mailto:{{ p.email }}">{{ p.email }}</a
     ><br />
-    P.IVA: 04501090403
+    P.IVA: {{ p.vat_id }}
   </p>
 </footer>

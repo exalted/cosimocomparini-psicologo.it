@@ -10,6 +10,8 @@ practitioner:
   url: "/chi-sono"
   image: "/assets/img/chi-sono.jpg"
   telephone: "+393295891245"
+  # Human-readable phone, used in visible link text (the `tel:` href uses `telephone`).
+  telephone_display: "329 589 1245"
   email: "cosimo.comparini@gmail.com"
   vat_id: "04501090403"
   alumni_of: "Alma Mater Studiorum - Università di Bologna"

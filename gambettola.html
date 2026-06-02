@@ -9,6 +9,8 @@ schema: office
 office_key: gambettola
 ---
 
+{% assign p = site.data.business.practitioner %}
+{% assign off = site.data.business.offices[page.office_key] %}
 {% capture content %}
 <p class="font-bold">
   Per fissare un primo colloquio puoi contattarmi tramite i riferimenti sotto
@@ -36,7 +38,7 @@ office_key: gambettola
       d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
     />
   </svg>
-  Via del Cadore, 7/A, 47035 Gambettola (FC)<br />
+  {{ off.street }}, {{ off.postal_code }} {{ off.city }} ({{ off.province }})<br />
 
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -54,9 +56,9 @@ office_key: gambettola
   </svg>
   Cellulare:
   <a
-    href="tel:+393295891245"
+    href="tel:{{ p.telephone }}"
     class="underline text-green-500 hover:text-green-600"
-    >329 589 1245</a
+    >{{ p.telephone_display }}</a
   ><br />
 
   <svg
@@ -75,9 +77,9 @@ office_key: gambettola
   </svg>
   Email:
   <a
-    href="mailto:cosimo.comparini@gmail.com"
+    href="mailto:{{ p.email }}"
     class="underline text-green-500 hover:text-green-600"
-    >cosimo.comparini@gmail.com</a
+    >{{ p.email }}</a
   ><br />
 
   <svg
@@ -96,7 +98,7 @@ office_key: gambettola
   </svg>
   GuidaPsicologi:
   <a
-    href="https://www.guidapsicologi.it/studio/dott-cosimo-giuseppe-comparini"
+    href="{{ p.same_as[0] }}"
     rel="nofollow"
     target="_blank"
     class="underline text-green-500 hover:text-green-600"
