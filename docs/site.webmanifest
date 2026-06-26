@@ -1,0 +1,20 @@
+{
+    "name": "Psicologo",
+    "short_name": "Psicologo",
+    "description": "Psicologo a Cesena e Gambettola · Dott. Cosimo Giuseppe Comparini",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png?checksum=cf6ae4f932f7f9a2ec22329260419a8b",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-384x384.png?checksum=1ddc28fa8d6a377714e1faffbcf7052d",
+            "sizes": "384x384",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}

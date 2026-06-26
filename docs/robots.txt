@@ -1,0 +1,8 @@
+
+
+User-agent: *
+Sitemap: https://cosimocomparini-psicologo.it/sitemap.xml
+
+
+Disallow: /404
+
