@@ -105,6 +105,9 @@
         id="mobile-menu-show"
         type="button"
         class="lg:hidden !mr-2 text-green-600"
+        aria-label="Apri il menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -112,6 +115,8 @@
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          aria-hidden="true"
+          focusable="false"
         >
           <path
             stroke-linecap="round"
@@ -126,6 +131,9 @@
         type="button"
         class="lg:hidden !mr-2 text-green-600"
         style="display: none"
+        aria-label="Chiudi il menu"
+        aria-controls="mobile-menu"
+        aria-expanded="true"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -133,6 +141,8 @@
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          aria-hidden="true"
+          focusable="false"
         >
           <path
             stroke-linecap="round"

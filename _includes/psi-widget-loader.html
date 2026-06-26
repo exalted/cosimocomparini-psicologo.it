@@ -10,6 +10,13 @@
     js.onload = function () {
       createWidget("desktop");
       createWidget("mobile");
+      // Give the widget iframes an accessible name (a11y: frame-title).
+      ["desktop", "mobile"].forEach(function (variant) {
+        var frame = document.getElementById("WidgetFrameId_" + variant);
+        if (frame) {
+          frame.title = "Badge di verifica Psicologi-Italia.it";
+        }
+      });
     };
     doc.body.appendChild(js);
   })(document, "script", "psi-widget-script");
